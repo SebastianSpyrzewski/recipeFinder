@@ -6,7 +6,7 @@ To run the program, you need to execute command
 ```
 ./recipeFinder --ingredients=<list of ingredients> --numberOfRecipes=<number of recipes you want program to return>
 ```
-where list of ingredients need to be given without spaces, separated by commas, and number of recipes can be ommitted - default value is 5. Example of use would be:
+where list of ingredients need to be given without spaces and separated by commas. Number of recipes can be ommitted (default value is 5). Example of use would be:
 ```
 ./recipeFinder --ingredients=tomatoes,eggs,pasta --numberOfRecipes=3
 ```
