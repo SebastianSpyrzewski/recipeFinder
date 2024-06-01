@@ -5,6 +5,7 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"recipeFinder/request"
@@ -28,30 +29,25 @@ to quickly create a Cobra application.`,
 		ingredients, err1 := cmd.Flags().GetStringSlice("ingredients")
 		n, err2 := cmd.Flags().GetInt("numberOfRecipes")
 		if err1 != nil || err2 != nil {
+			fmt.Println("error parsing flags")
+			println(err1.Error())
+			println(err2.Error())
 			os.Exit(1)
 		}
 		request.HandleRequest(ingredients, n)
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
+		fmt.Println("error exetucing command")
+		println(err.Error())
 		os.Exit(1)
 	}
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.recipeFinder.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
 	var ingredients []string
 	var numberOfRecipes = 5
 	rootCmd.Flags().StringSliceP("ingredients", "i", ingredients[:], "ingredients contained in a fridge")

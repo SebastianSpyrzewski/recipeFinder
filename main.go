@@ -6,8 +6,10 @@ package main
 
 import (
 	"recipeFinder/cmd"
+	db "recipeFinder/database"
 )
 
 func main() {
+	db.Connect()
 	cmd.Execute()
 }

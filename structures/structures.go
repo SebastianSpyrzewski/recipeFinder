@@ -1,7 +1,7 @@
 package structures
 
 type Ingredient struct {
-	Id   int
+	Id   int //we want it to be id in our database, not in spoonacular
 	Name string
 }
 

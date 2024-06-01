@@ -6,6 +6,7 @@ package request
 
 import (
 	"fmt"
+	db "recipeFinder/database"
 	http "recipeFinder/httpconnection"
 	st "recipeFinder/structures"
 	"strings"
@@ -14,8 +15,11 @@ import (
 func HandleRequest(ingredients []string, n int) {
 
 	request := st.Request{Ingredients: ingredients, NumberOfRecipes: n}
-
-	recipes := http.AskAPI(request)
+	recipes := db.Search(request)
+	if recipes == nil {
+		recipes = http.AskAPI(request)
+		db.Update(request, recipes)
+	}
 
 	for _, r := range recipes {
 		fmt.Println(r.Title)

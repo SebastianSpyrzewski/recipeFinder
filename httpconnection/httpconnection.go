@@ -13,11 +13,15 @@ import (
 func httpGet(request string) []byte {
 	resp, err := http.Get(request)
 	if err != nil {
+		fmt.Println("http communication error")
+		println(err.Error())
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
+		fmt.Println("http communication error")
+		println(err.Error())
 		os.Exit(1)
 	}
 	return body
