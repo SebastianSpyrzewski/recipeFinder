@@ -20,6 +20,6 @@ Package for parsing command line arguments, created with [Cobra library](https:/
 ### request
 Package for simple tasks operating with user's request and formatting output. Its main goal is to connect **httpconnection** and **database** packages.
 ### database
-The main purpose of this database is to avoid unnecessary API calls and use saved data if possible. The main tables of the database are _ingrediens_, _requests_ and _recipes_, while the other ones describe relationships between them. We communicate with database via sqlite3. The whole database is included in this repository - in particular it can be not empty, but that is not a problem in our case.
+The main purpose of this database is to avoid unnecessary API calls and use saved data if possible. The main tables of the database are _ingredients_, _requests_ and _recipes_, while the other ones describe relationships between them. We communicate with database via sqlite3. The whole database is included in this repository - in particular it can be not empty, but that is not a problem in our case.
 ### httpconnection
 If necessary data is not present in the database, this package sends appropriate get request to Spoonacular page and saves the response in suitable structures.
