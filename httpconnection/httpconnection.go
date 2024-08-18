@@ -4,11 +4,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	st "recipeFinder/structures"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
+
+func getEnvVariable(key string) string {
+
+	err := godotenv.Load("recipeFinder.env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	return os.Getenv(key)
+}
 
 func httpGet(request string) []byte {
 	resp, err := http.Get(request)
@@ -28,7 +42,10 @@ func httpGet(request string) []byte {
 }
 
 func AskAPI(req st.Request) []st.Recipe {
-	request := "https://api.spoonacular.com/recipes/findByIngredients?apiKey=317fd2ab50974f61a73c23cb59ff3c6c&ranking=2&ingredients="
+	godotenv.Load()
+
+	apiKey := getEnvVariable("API_KEY")
+	request := "https://api.spoonacular.com/recipes/findByIngredients?apiKey=" + apiKey + "&ranking=2&ingredients="
 	request += strings.Join(req.Ingredients, ",+")
 	request += "&number="
 	request += fmt.Sprintf("%v", req.NumberOfRecipes)
@@ -40,7 +57,7 @@ func AskAPI(req st.Request) []st.Recipe {
 		os.Exit(1)
 	}
 	for i, r := range recipes {
-		request = "https://api.spoonacular.com/recipes/" + fmt.Sprintf("%v", r.Id) + "/nutritionWidget.json?apiKey=317fd2ab50974f61a73c23cb59ff3c6c"
+		request = "https://api.spoonacular.com/recipes/" + fmt.Sprintf("%v", r.Id) + "/nutritionWidget.json?apiKey=" + apiKey
 		body = httpGet(request)
 		err := json.Unmarshal(body, &recipes[i])
 		if err != nil {

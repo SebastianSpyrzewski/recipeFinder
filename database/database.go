@@ -32,7 +32,6 @@ func Search(req st.Request) []st.Recipe {
 		return nil
 	}
 	if n < req.NumberOfRecipes {
-		fmt.Println("less")
 		db.Exec("DELETE FROM requests WHERE id=?", id) //we will insert new request with same ingredients but more recipes, so the old one becomes useless
 		return nil
 	}
